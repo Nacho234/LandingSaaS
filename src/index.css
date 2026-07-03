@@ -1,0 +1,109 @@
+@import '@fontsource-variable/outfit';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', monospace;
+
+  /* Negro azulado como base, un solo acento: cian eléctrico */
+  --color-ink-950: #05080f;
+  --color-ink-900: #090e1a;
+  --color-ink-800: #0d1424;
+  --color-ink-700: #131c31;
+  --color-ink-600: #1c2942;
+
+  --color-accent-300: #67e8f9;
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0284c7;
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee, .animate-float, .animate-pulse-soft { animation: none !important; }
+}
+
+body {
+  @apply bg-ink-950 text-slate-300 font-sans antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.25);
+  color: #f8fafc;
+}
+
+/* Superficie de card con vidrio controlado */
+.card {
+  @apply rounded-2xl border border-white/8 bg-white/[0.03];
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.card-hover {
+  @apply transition-all duration-300;
+}
+.card-hover:hover {
+  @apply border-accent-400/30 bg-white/[0.05] -translate-y-1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 40px -12px rgba(6, 182, 212, 0.15);
+}
+
+/* Panel de vidrio para navbar y modales */
+.glass {
+  background: rgba(9, 14, 26, 0.78);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: #090e1a;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Grid tecnológico sutil de fondo */
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
+}
+
+/* Texto con gradiente del acento */
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(100deg, #67e8f9 0%, #22d3ee 45%, #3b82f6 100%);
+}
+
+/* Scrollbar fina para paneles internos de mockups */
+.slim-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+.slim-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.2); border-radius: 3px; }
+
+:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
